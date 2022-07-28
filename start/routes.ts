@@ -8,4 +8,6 @@ Route.group(()=>{
 
   Route.resource("/users","UsersController").except(['create','show'])
 
+  Route.resource("/imobils","ImobilsController").except(['create','show'])
+
 }).prefix("api")
