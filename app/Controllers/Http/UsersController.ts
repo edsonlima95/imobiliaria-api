@@ -13,7 +13,7 @@ export default class UsersController {
 
   }
 
-  public async store({ }: HttpContextContract) { }
+  public async store({ }: HttpContextContract) { }  
 
   public async edit({ }: HttpContextContract) { }
 

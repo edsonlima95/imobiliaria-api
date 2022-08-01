@@ -6,8 +6,12 @@ Route.group(()=>{
   Route.post("/auth/signIn","AuthController.signIn")
   Route.get("/auth/checkToken","AuthController.checkToken")
 
-  Route.resource("/users","UsersController").except(['create','show'])
-
-  Route.resource("/imobils","ImobilsController").except(['create','show'])
+  Route.group(()=>{
+ 
+    Route.resource("/users","UsersController").except(['create','show'])
+    
+    Route.resource("/imobils","ImobilsController").except(['create','show'])
+  
+  }).middleware(['auth'])
 
 }).prefix("api")

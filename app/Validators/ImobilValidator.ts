@@ -1,40 +1,67 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ImobilValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
-  /*
-   * Define schema to validate the "shape", "type", "formatting" and "integrity" of data.
-   *
-   * For example:
-   * 1. The username must be of data type string. But then also, it should
-   *    not contain special characters or numbers.
-   *    ```
-   *     schema.string({}, [ rules.alpha() ])
-   *    ```
-   *
-   * 2. The email must be of data type string, formatted as a valid
-   *    email. But also, not used by any other user.
-   *    ```
-   *     schema.string({}, [
-   *       rules.email(),
-   *       rules.unique({ table: 'users', column: 'email' }),
-   *     ])
-   *    ```
-   */
-  public schema = schema.create({})
 
-  /**
-   * Custom messages for validation failures. You can make use of dot notation `(.)`
-   * for targeting nested fields and array expressions `(*)` for targeting all
-   * children of an array. For example:
-   *
-   * {
-   *   'profile.username.required': 'Username is required',
-   *   'scores.*.number': 'Define scores as valid numbers'
-   * }
-   *
-   */
-  public messages: CustomMessages = {}
+  public schema = schema.create({
+    title: schema.string(),
+    file: schema.file.optional({
+      size: '1mb',
+      extnames: ["jpg", "png", "jpeg"]
+    }, [rules.requiredWhen('id', '=', null)]),
+    description: schema.string(),
+    user_id: schema.number(),
+    image: schema.string.optional(),
+    address: schema.string(),
+    number: schema.number(),
+    complement: schema.string.optional(),
+    neighborhood: schema.string(),
+    city: schema.string(),
+    state: schema.string(),
+    status: schema.boolean.optional(),
+    type: schema.string(),
+
+    price: schema.number.optional(),
+    rental_price: schema.number.optional(),
+    area: schema.number.optional(),
+    garage: schema.number.optional(),
+    bedroom: schema.number.optional(),
+    bathroom: schema.number.optional(),
+    kitchen: schema.number.optional(),
+    living_room: schema.number.optional(),
+    dining_room: schema.number.optional(),
+    suites: schema.number.optional(),
+
+    pool: schema.boolean.optional(),
+    gym: schema.boolean.optional(),
+    closet: schema.boolean.optional(),
+    furnished_kitchen: schema.boolean.optional(),
+    american_kitchen: schema.boolean.optional(),
+    backyard: schema.boolean.optional(),
+    garden: schema.boolean.optional(),
+    deck: schema.boolean.optional(),
+    grill: schema.boolean.optional(),
+
+  })
+
+
+  public messages: CustomMessages = {
+
+    "title.required": "Titulo é obrigatório",
+    "description.required": "Descrição é obrigatório",
+    "user_id.required": "Usuário é obrigatório",
+    "address.required": "Endereço é obrigatório",
+    "number.required": "Numero é obrigatório",
+    "neighborhood.required": "Bairro é obrigatório",
+    "city.required": "Cidade é obrigatório",
+    "state.required": "Estado é obrigatório",
+    "type.required": "Tipo é obrigatório",
+    "image.required": "Imagen é obrigatória",
+    "file.size": "Tamanho máximo do arquivo é de {{options.size}}",
+    "file.extname": "Apenas os formatos {{options.extnames}} são válidos",
+    "file.requiredWhen": "A imagem é obrigatória",
+  }
+
 }

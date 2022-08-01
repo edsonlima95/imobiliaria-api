@@ -15,7 +15,7 @@ export default class Imobil extends BaseModel {
   @column()
   public number: number
   @column()
-  public complement: string
+  public complement?: string
   @column()
   public neighborhood: string
   @column()
@@ -23,51 +23,51 @@ export default class Imobil extends BaseModel {
   @column()
   public state: string
   @column()
-  public status: boolean
+  public status?: boolean
   @column()
   public type: string
   @column()
-  public price: number
+  public price?: number
   @column()
-  public rental_price: number
+  public rental_price?: number
   @column()
-  public cover: string
+  public image: string
 
   @column()
-  public area: number
+  public area?: number
   @column()
-  public garage: number
+  public garage?: number
   @column()
-  public bedroom: number
+  public bedroom?: number
   @column()
-  public bathroom: number
+  public bathroom?: number
   @column()
-  public kitchen: number
+  public kitchen?: number
   @column()
-  public living_room: number
+  public living_room?: number
   @column()
-  public dining_room: number
+  public dining_room?: number
   @column()
-  public suites: number
+  public suites?: number
 
   @column()
-  public pool: boolean
+  public pool?: boolean
   @column()
-  public gym: boolean
+  public gym?: boolean
   @column()
-  public closet: boolean
+  public closet?: boolean
   @column()
-  public furnished_kitchen: boolean
+  public furnished_kitchen?: boolean
   @column()
-  public american_kitchen: boolean
+  public american_kitchen?: boolean
   @column()
-  public backyard: boolean
+  public backyard?: boolean
   @column()
-  public garden: boolean
+  public garden?: boolean
   @column()
-  public deck: boolean
+  public deck?: boolean
   @column()
-  public grill: boolean
+  public grill?: boolean
 
 
   @belongsTo(() => User, {
