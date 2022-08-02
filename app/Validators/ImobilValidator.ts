@@ -14,7 +14,7 @@ export default class ImobilValidator {
     description: schema.string(),
     user_id: schema.number(),
     image: schema.string.optional(),
-    address: schema.string(),
+    address: schema.string([rules.alpha()]),
     number: schema.number(),
     complement: schema.string.optional(),
     neighborhood: schema.string(),
@@ -23,8 +23,8 @@ export default class ImobilValidator {
     status: schema.boolean.optional(),
     type: schema.string(),
 
-    price: schema.number.optional(),
-    rental_price: schema.number.optional(),
+    price: schema.string.nullable(),
+    rental_price: schema.string.nullable(),
     area: schema.number.optional(),
     garage: schema.number.optional(),
     bedroom: schema.number.optional(),
@@ -50,15 +50,26 @@ export default class ImobilValidator {
   public messages: CustomMessages = {
 
     "title.required": "Titulo é obrigatório",
+
     "description.required": "Descrição é obrigatório",
+    
     "user_id.required": "Usuário é obrigatório",
+    
     "address.required": "Endereço é obrigatório",
+    "address.alpha": "Endereço deve ser texto",
+    
     "number.required": "Numero é obrigatório",
+    
     "neighborhood.required": "Bairro é obrigatório",
+    
     "city.required": "Cidade é obrigatório",
+    
     "state.required": "Estado é obrigatório",
+    
     "type.required": "Tipo é obrigatório",
+    
     "image.required": "Imagen é obrigatória",
+    
     "file.size": "Tamanho máximo do arquivo é de {{options.size}}",
     "file.extname": "Apenas os formatos {{options.extnames}} são válidos",
     "file.requiredWhen": "A imagem é obrigatória",

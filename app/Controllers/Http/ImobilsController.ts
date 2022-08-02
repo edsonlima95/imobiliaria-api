@@ -5,14 +5,26 @@ import ImobilValidator from 'App/Validators/ImobilValidator'
 
 export default class ImobilsController {
 
-  public async index({ }: HttpContextContract) { }
+  private PAGE_LIMIT: number = 5
+
+  public async index({ request, response }: HttpContextContract) {
+
+    const { user_id, page } = request.qs()
+
+    const imobils = await Imobil.query()
+      .where("user_id", user_id)
+      .orderBy("id", 'desc')
+      .paginate(page, this.PAGE_LIMIT)
+
+    return response.json({ imobils })
+
+  }
 
   public async store({ request, response }: HttpContextContract) {
 
     // const data = request.body()
-
-    // console.log(data)
-
+    // console.log(data.price)
+    // return
 
     try {
       const coverImage = request.file('file')
@@ -35,8 +47,8 @@ export default class ImobilsController {
         status: data.status,
         type: data.type,
 
-        price: data.price,
-        rental_price: data.rental_price,
+        price: Number(data.price),
+        rental_price: Number(data.rental_price),
         area: data.area,
         garage: data.garage,
         bedroom: data.bedroom,
@@ -61,7 +73,6 @@ export default class ImobilsController {
       return response.json({ message: "Imóvel cadastrado com sucesso!" })
 
     } catch (error) {
-      console.log(error)
       return response.internalServerError(error.messages)
     }
 
@@ -117,8 +128,8 @@ export default class ImobilsController {
         status: data.status,
         type: data.type,
 
-        price: data.price,
-        rental_price: data.rental_price,
+        price: Number(data.price),
+        rental_price: Number(data.rental_price),
         area: data.area,
         garage: data.garage,
         bedroom: data.bedroom,
@@ -148,5 +159,23 @@ export default class ImobilsController {
 
   }
 
-  public async destroy({ }: HttpContextContract) { }
+  public async destroy({ request, response }: HttpContextContract) {
+
+    const { id } = request.params()
+    const { page } = request.qs()
+
+    const imobil = await Imobil.findOrFail(id)
+
+    await Drive.delete(`imobil/${imobil?.image}`)
+
+    await imobil?.delete()
+
+    const imobils = await Imobil.query()
+      .where("user_id", imobil.user_id)
+      .orderBy("id", 'desc')
+      .paginate(page, this.PAGE_LIMIT)
+
+    return response.json({ message: "Imóvel deletado com sucesso", imobils })
+
+  }
 }
