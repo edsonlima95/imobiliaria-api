@@ -1,8 +1,8 @@
-import { http } from './../../../config/app';
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import UserValidator from 'App/Validators/UserValidator'
 import LoginValidator from 'App/Validators/LoginValidator'
+import Drive from '@ioc:Adonis/Core/Drive'
 
 
 type Response = {
@@ -25,6 +25,7 @@ export default class AuthController {
          await request.validate(LoginValidator)
           
         } catch (error) {
+           
             return response.internalServerError(error.messages)
         }
 
@@ -46,6 +47,7 @@ export default class AuthController {
             return response.json(res)
 
         } catch (error) {
+            
             return response.internalServerError({ message: 'Email ou senha incorreto'})
         }
 
@@ -68,6 +70,14 @@ export default class AuthController {
 
     }
 
+    public async cover({ params, response }: HttpContextContract) {
+
+        
+        const cover = await Drive.getStream(`/user/${params.cover}`)
+        
+        return response.stream(cover);
+    }
+
     public async checkToken({ response, auth }) {
 
         try {
@@ -79,4 +89,6 @@ export default class AuthController {
             return response.unauthorized({ error: 'invalid token' })
         }
     }
+
+
 }

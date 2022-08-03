@@ -18,6 +18,9 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
+  public cover?: string
+
+  @column()
   public rememberMeToken?: string
 
   @hasMany(() => Imobil, {

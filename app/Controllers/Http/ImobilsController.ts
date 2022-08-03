@@ -3,6 +3,7 @@ import Imobil from 'App/Models/Imobil'
 import Drive from '@ioc:Adonis/Core/Drive'
 import ImobilValidator from 'App/Validators/ImobilValidator'
 
+
 export default class ImobilsController {
 
   private PAGE_LIMIT: number = 5
@@ -21,10 +22,6 @@ export default class ImobilsController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-
-    // const data = request.body()
-    // console.log(data.price)
-    // return
 
     try {
       const coverImage = request.file('file')
@@ -78,11 +75,10 @@ export default class ImobilsController {
 
   }
 
-  public async edit({ request, response }: HttpContextContract) {
+  public async edit({  response, params }: HttpContextContract) {
 
-    const { id } = request.params()
 
-    const imobil = await Imobil.find(id)
+    const imobil = await Imobil.find(params.id)
 
     if (!imobil) {
       return response.internalServerError({ message: "Imóvel não existe!" })
@@ -159,12 +155,11 @@ export default class ImobilsController {
 
   }
 
-  public async destroy({ request, response }: HttpContextContract) {
+  public async destroy({ request, response, params }: HttpContextContract) {
 
-    const { id } = request.params()
     const { page } = request.qs()
 
-    const imobil = await Imobil.findOrFail(id)
+    const imobil = await Imobil.findOrFail(params.id)
 
     await Drive.delete(`imobil/${imobil?.image}`)
 
