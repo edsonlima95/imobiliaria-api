@@ -34,6 +34,7 @@ export default class ImobilsController {
         title: data.title,
         description: data.description,
         user_id: data.user_id,
+        category_id: data.category_id,
         image: coverImage?.fileName,
         address: data.address,
         number: data.number,
@@ -70,6 +71,7 @@ export default class ImobilsController {
       return response.json({ message: "Imóvel cadastrado com sucesso!" })
 
     } catch (error) {
+      console.log(error)
       return response.internalServerError(error.messages)
     }
 
@@ -114,6 +116,7 @@ export default class ImobilsController {
         title: data.title,
         description: data.description,
         user_id: data.user_id,
+        category_id: data.category_id,
         image: imageName,
         address: data.address,
         number: data.number,

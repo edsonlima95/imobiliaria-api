@@ -13,8 +13,9 @@ export default class ImobilValidator {
     }, [rules.requiredWhen('id', '=', null)]),
     description: schema.string(),
     user_id: schema.number(),
+    category_id: schema.number(),
     image: schema.string.optional(),
-    address: schema.string([rules.alpha()]),
+    address: schema.string(),
     number: schema.number(),
     complement: schema.string.optional(),
     neighborhood: schema.string(),
@@ -54,10 +55,11 @@ export default class ImobilValidator {
     "description.required": "Descrição é obrigatório",
     
     "user_id.required": "Usuário é obrigatório",
+
+    "category_id.required": "Categoria é obrigatório",
     
     "address.required": "Endereço é obrigatório",
-    "address.alpha": "Endereço deve ser texto",
-    
+  
     "number.required": "Numero é obrigatório",
     
     "neighborhood.required": "Bairro é obrigatório",

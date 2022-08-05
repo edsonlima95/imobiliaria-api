@@ -8,16 +8,18 @@ export default class extends BaseSchema {
       table.increments('id')
 
       table.integer('user_id').notNullable()
+      table.integer('category_id').notNullable()
 
       table.string('title',255).notNullable()
-      table.string('description',255).notNullable()
+      table.string('slug',255).notNullable()
+      table.text('description').notNullable()
       table.string('address',255).notNullable()
       table.integer('number',255).notNullable()
       table.string('complement',255).nullable()
       table.string('neighborhood',255).notNullable()
       table.string('city',255).notNullable()
       table.string('state',255).notNullable()
-      table.boolean('status').nullable().defaultTo(1)
+      table.boolean('status').nullable().defaultTo(false)
       table.string('type',255).notNullable()
       table.decimal('price',10,2).nullable()
       table.decimal('rental_price',10,2).nullable()
@@ -44,6 +46,7 @@ export default class extends BaseSchema {
 
 
       table.foreign('user_id').references('users.id').onDelete('CASCADE')
+      table.foreign('category_id').references('categories.id').onDelete('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
