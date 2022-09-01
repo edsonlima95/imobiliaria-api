@@ -17,6 +17,8 @@ type Response = {
 
 export default class AuthController {
 
+    
+
     public async login({ auth, response, request }: HttpContextContract) {
 
         const { email, password } = request.body()
@@ -71,8 +73,7 @@ export default class AuthController {
     }
 
     public async cover({ params, response }: HttpContextContract) {
-
-        
+ 
         const cover = await Drive.getStream(`/user/${params.cover}`)
         
         return response.stream(cover);

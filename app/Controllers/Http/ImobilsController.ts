@@ -77,7 +77,7 @@ export default class ImobilsController {
 
   }
 
-  public async edit({  response, params }: HttpContextContract) {
+  public async edit({ response, params }: HttpContextContract) {
 
 
     const imobil = await Imobil.find(params.id)
@@ -176,4 +176,7 @@ export default class ImobilsController {
     return response.json({ message: "Imóvel deletado com sucesso", imobils })
 
   }
+
+  
+
 }
