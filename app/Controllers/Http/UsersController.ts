@@ -15,13 +15,11 @@ export default class UsersController {
 
   }
 
-  public async store({ }: HttpContextContract) { }
-
-  public async edit({ }: HttpContextContract) { }
-
   public async update({ request, response, params }: HttpContextContract) {
 
     const data = request.body()
+
+    const cover = request.file('file')
    
     const user = await User.findOrFail(params.id)
 
@@ -40,8 +38,7 @@ export default class UsersController {
         }
       })
 
-
-      if (payload) {
+      if (cover) {
         await Drive.delete(`user/${user?.cover}`)
         await payload.file?.moveToDisk('./user')
         var imageName = payload.file?.fileName
@@ -63,9 +60,6 @@ export default class UsersController {
       return response.internalServerError(error.messages)
 
     }
-
   }
-
-  public async destroy({ }: HttpContextContract) { }
 
 }
