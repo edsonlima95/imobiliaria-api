@@ -71,7 +71,7 @@ export default class ImobilsController {
       return response.json({ message: "Imóvel cadastrado com sucesso!" })
 
     } catch (error) {
-      console.log(error)
+      
       return response.internalServerError(error.messages)
     }
 
@@ -103,7 +103,6 @@ export default class ImobilsController {
 
       const data = await request.validate(ImobilValidator)
 
-
       if (coverImage) {
         await Drive.delete(`imobil/${imobil?.image}`)
         await coverImage.moveToDisk('./imobil')
@@ -111,6 +110,7 @@ export default class ImobilsController {
       } else {
         var imageName = imobil?.image
       }
+
 
       await imobil?.merge({
         title: data.title,
@@ -138,15 +138,15 @@ export default class ImobilsController {
         dining_room: data.dining_room,
         suites: data.suites,
 
-        pool: data.pool,
-        gym: data.gym,
-        closet: data.closet,
-        furnished_kitchen: data.furnished_kitchen,
-        american_kitchen: data.american_kitchen,
-        backyard: data.backyard,
-        garden: data.garden,
-        deck: data.deck,
-        grill: data.grill,
+        pool: data.pool ? data.pool : false,
+        gym: data.gym ? data.gym : false,
+        closet: data.closet? data.closet : false,
+        furnished_kitchen: data.furnished_kitchen? data.furnished_kitchen : false,
+        american_kitchen: data.american_kitchen ? data.american_kitchen : false,
+        backyard: data.backyard ? data.backyard : false,
+        garden: data.garden ? data.garden : false,
+        deck: data.deck ? data.deck : false,
+        grill: data.grill ? data.grill : false,
 
       }).save()
 

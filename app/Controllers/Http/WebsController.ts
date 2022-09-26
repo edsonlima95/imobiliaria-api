@@ -8,7 +8,7 @@ export default class WebsController {
 
     public async index({ response }: HttpContextContract) {
 
-        const imobils = await Imobil.query().orderBy("id", "desc").where("status", false)
+        const imobils = await Imobil.query().orderBy("id", "desc").where("status", true)
 
         const categories = await Category.query().orderBy("id", "desc")
 

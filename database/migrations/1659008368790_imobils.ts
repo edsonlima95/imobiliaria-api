@@ -19,7 +19,7 @@ export default class extends BaseSchema {
       table.string('neighborhood',255).notNullable()
       table.string('city',255).notNullable()
       table.string('state',255).notNullable()
-      table.boolean('status').nullable().defaultTo(false)
+      table.boolean('status').nullable().defaultTo(true)
       table.string('type',255).notNullable()
       table.decimal('price',10,2).nullable()
       table.decimal('rental_price',10,2).nullable()
